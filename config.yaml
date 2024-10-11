@@ -1,53 +1,33 @@
-# Whisper AI Configuration
-
-# Model settings
-model:
-  name: "base"  # Choose between "tiny", "base", "small", "medium", "large"
-  language: "auto"  # Set to specific language code or "auto" for automatic detection
-
-# Audio processing
 audio:
-  input_file: "input.wav"
-  output_file: "output"
-  output_format: "txt"
-  chunk_size: 300  # Seconds
+  input_file: audio/file.wav
+  output_file: output/output
+  output_format: txt
 
-# Performance settings
-performance:
-  device: "cuda"  # Use "cuda" for GPU or "cpu" for CPU
-  num_workers: 2  # Number of worker threads for parallel processing
+model:
+  name: base
+  language: auto
 
-# Whisper settings
 whisper:
-  sample_rate: 16000  # Audio sample rate
   temperature: 0
   compression_ratio_threshold: 2.4
   logprob_threshold: -1.0
   no_speech_threshold: 0.6
-  fp16: true  # Will be overridden based on CUDA availability
+  fp16: True
 
-# Diarization settings
 diarization:
-  enabled: false
-  model: "pyannote/speaker-diarization@2.1"
-  auth_token: "YOUR_HF_AUTH_TOKEN"
-  num_speakers: 2
-  min_duration_off: 0.5
-  min_cluster_size: 15
+  enabled: true
+  frame_length: 0.025  # 25 ms
+  hop_length: 0.010  # 10 ms
+  energy_threshold: 1.5  # Adjust this value to change sensitivity
+  min_silence_duration: 0.5  # Minimum duration of silence to be considered a pause (in seconds)
+  min_speech_duration: 0.5  # Minimum duration of speech to be considered a segment (in seconds)
 
-# Translation settings
 translation:
   enabled: false
-  target_language: "en"
+  target_language: en
 
-# Preprocessing settings
 preprocess:
   enabled: false
-  output_file: "preprocessed_audio.wav"
   noise_reduction: true
   normalize: true
-
-# Logging
-logging:
-  level: "INFO"
-  file: "whisper_transcription.log"
+  output_file: preprocessed/audio.wav
