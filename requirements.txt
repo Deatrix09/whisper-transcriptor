@@ -1,0 +1,10 @@
+whisper
+pyannote.audio
+transformers
+pyyaml
+tqdm
+click
+torch
+pydub
+librosa
+soundfile
